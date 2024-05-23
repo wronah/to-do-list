@@ -4,7 +4,12 @@ import './App.css'
 
 const App = () => {
 
-  const [ tasks, setTasks ] = useState([])
+  const [tasks, setTasks] = useState([])
+
+  const [task, setTask] = useState({
+    heading: '',
+    description: ''
+  })
 
   useEffect(() => {
     fetchTasks()
@@ -17,9 +22,28 @@ const App = () => {
     setTasks(data)
   }
 
+  function handleChange(event) {
+    setTask(previousFormData =>{
+      return {
+        ...previousFormData,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
+  async function createTask() {
+    await supabase
+      .from('tasks')
+      .insert({ heading: task.heading, description: task.description })
+  }
 
   return (
     <div>
+      <form onSubmit={createTask}>
+        <input type="text" name="heading" placeholder="Heading" id="heading" onChange={handleChange} />
+        <input type="text" name="description" placeholder="Description" id="description" onChange={handleChange} />
+        <button type="submit">Create</button>
+      </form>
       <table>
         <thead>
           <tr>
@@ -31,7 +55,7 @@ const App = () => {
         </thead>
         <tbody>
           {tasks.map((task) => 
-            <tr>
+            <tr key={task.id}>
               <td>{task.id}</td>
               <td>{task.heading}</td>
               <td>{task.description}</td>
