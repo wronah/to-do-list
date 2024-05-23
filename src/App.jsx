@@ -32,9 +32,32 @@ const App = () => {
   }
 
   async function createTask() {
-    await supabase
+    const { error } = await supabase
       .from('tasks')
       .insert({ heading: task.heading, description: task.description })
+
+    fetchTasks()
+
+    if(error) {
+      console.log(error)
+    }
+  }
+
+  async function deleteTask(id) {
+    const { data, error } = await supabase 
+      .from('tasks')
+      .delete()
+      .eq('id', id)
+    
+    fetchTasks()
+
+    if(error) {
+      console.log(error)
+    }
+
+    if(data) {
+      console.log(data)
+    }
   }
 
   return (
@@ -51,6 +74,7 @@ const App = () => {
             <th>heading</th>
             <th>description</th>
             <th>is_done</th>
+            <th>actions</th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +84,7 @@ const App = () => {
               <td>{task.heading}</td>
               <td>{task.description}</td>
               <td>{String(task.is_done)}</td>
+              <td><button onClick={() => {deleteTask(task.id)}}>Delete</button></td>
             </tr>
           )}
         </tbody>
