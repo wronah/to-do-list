@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './createClient';
 import './App.css'
+import { Button } from "@/components/ui/button"
 
 const App = () => {
 
@@ -105,12 +106,12 @@ const App = () => {
       <form onSubmit={createTask}>
         <input type="text" name="heading" placeholder="Heading" id="heading" onChange={handleChange} />
         <input type="text" name="description" placeholder="Description" id="description" onChange={handleChange} />
-        <button type="submit">Create</button>
+        <Button type="submit">Create</Button>
       </form>
       <form onSubmit={() => updateTask(editTask.id)}>
         <input type="text" name="heading" defaultValue={editTask.heading} id="heading" onChange={handleEditChange} />
         <input type="text" name="description" defaultValue={editTask.description} id="description" onChange={handleEditChange} />
-        <button type="submit">Save changes</button>
+        <Button type="submit">Save changes</Button>
       </form>
       <table>
         <thead>
@@ -130,8 +131,8 @@ const App = () => {
               <td>{task.description}</td>
               <td>{String(task.is_done)}</td>
               <td>
-                <button onClick={() => {deleteTask(task.id)}}>Delete</button>
-                <button onClick={() => {displayTask(task.id)}}>Edit</button>
+                <Button onClick={() => {deleteTask(task.id)}}>Delete</Button>
+                <Button onClick={() => {displayTask(task.id)}}>Edit</Button>
               </td>
             </tr>
           )}
