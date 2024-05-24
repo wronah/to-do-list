@@ -11,6 +11,12 @@ const App = () => {
     description: ''
   })
 
+  const [editTask, setEditTask] = useState({
+    id: '',
+    heading: '',
+    description: ''
+  })
+
   useEffect(() => {
     fetchTasks()
   }, [])
@@ -24,6 +30,15 @@ const App = () => {
 
   function handleChange(event) {
     setTask(previousFormData =>{
+      return {
+        ...previousFormData,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
+  function handleEditChange(event) {
+    setEditTask(previousFormData =>{
       return {
         ...previousFormData,
         [event.target.name]: event.target.value
@@ -60,12 +75,42 @@ const App = () => {
     }
   }
 
+  async function updateTask(id) {
+    const { data, error } = await supabase
+      .from('tasks')
+      .update({ heading: editTask.heading, description: editTask.description })
+      .eq('id', id)
+
+    fetchTasks()
+
+    if(error) {
+      console.log(error)
+    }
+
+    if(data) {
+      console.log(data)
+    }
+  }
+
+  function displayTask(id) {
+    tasks.map((task) => {
+      if(task.id === id){
+        setEditTask({ id: task.id, heading: task.heading, description: task.description })
+      }
+    })
+  }
+
   return (
     <div>
       <form onSubmit={createTask}>
         <input type="text" name="heading" placeholder="Heading" id="heading" onChange={handleChange} />
         <input type="text" name="description" placeholder="Description" id="description" onChange={handleChange} />
         <button type="submit">Create</button>
+      </form>
+      <form onSubmit={() => updateTask(editTask.id)}>
+        <input type="text" name="heading" defaultValue={editTask.heading} id="heading" onChange={handleEditChange} />
+        <input type="text" name="description" defaultValue={editTask.description} id="description" onChange={handleEditChange} />
+        <button type="submit">Save changes</button>
       </form>
       <table>
         <thead>
@@ -84,7 +129,10 @@ const App = () => {
               <td>{task.heading}</td>
               <td>{task.description}</td>
               <td>{String(task.is_done)}</td>
-              <td><button onClick={() => {deleteTask(task.id)}}>Delete</button></td>
+              <td>
+                <button onClick={() => {deleteTask(task.id)}}>Delete</button>
+                <button onClick={() => {displayTask(task.id)}}>Edit</button>
+              </td>
             </tr>
           )}
         </tbody>
