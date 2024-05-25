@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from './createClient';
 import './App.css'
 import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const App = () => {
 
@@ -102,7 +110,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <form onSubmit={createTask}>
         <input type="text" name="heading" placeholder="Heading" id="heading" onChange={handleChange} />
         <input type="text" name="description" placeholder="Description" id="description" onChange={handleChange} />
@@ -113,7 +121,20 @@ const App = () => {
         <input type="text" name="description" defaultValue={editTask.description} id="description" onChange={handleEditChange} />
         <Button type="submit">Save changes</Button>
       </form>
-      <table>
+      {tasks.map((task) => 
+        <Card key={task.id} className="w-[350px] mt-4">
+          <CardHeader>
+            <CardTitle>{task.heading}</CardTitle>
+            <CardDescription>{task.description}</CardDescription>
+          </CardHeader>
+          <CardFooter className="flex justify-end">
+            <Button variant="outline" onClick={() => {displayTask(task.id)}}>Edit</Button>
+            <Button className="ml-2" onClick={() => {deleteTask(task.id)}}>Delete</Button>
+          </CardFooter>
+        </Card>
+      )}
+      
+      {/* <table>
         <thead>
           <tr>
             <th>id</th>
@@ -137,7 +158,7 @@ const App = () => {
             </tr>
           )}
         </tbody>
-      </table>
+      </table> */}
     </div>
   )
 }
