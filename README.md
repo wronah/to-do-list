@@ -1,7 +1,10 @@
-# learning-react
-Repository for my start learning react with supabase to do list project before participating in Kościuszkon II.
+# learning-react 
+
+Repository for my learning react journey as a preparation before participating in a hackathon (Kościuszkon II).      
+- [ ]  Todo list project
 
 ## Technologies: 
- - React
+ - React (with JavaScript)
  - Supabase
  - Shadcn-ui
+ - Tailwind CSS
