@@ -133,32 +133,6 @@ const App = () => {
           </CardFooter>
         </Card>
       )}
-      
-      {/* <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>heading</th>
-            <th>description</th>
-            <th>is_done</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => 
-            <tr key={task.id}>
-              <td>{task.id}</td>
-              <td>{task.heading}</td>
-              <td>{task.description}</td>
-              <td>{String(task.is_done)}</td>
-              <td>
-                <Button onClick={() => {deleteTask(task.id)}}>Delete</Button>
-                <Button onClick={() => {displayTask(task.id)}}>Edit</Button>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table> */}
     </div>
   )
 }
