@@ -32,8 +32,8 @@ const App = () => {
 
   async function fetchTasks() {
     const { data } = await supabase
-    .from('tasks')
-    .select('*')
+      .from('tasks')
+      .select('*')
     setTasks(data)
   }
 
@@ -116,11 +116,7 @@ const App = () => {
         <input type="text" name="description" placeholder="Description" id="description" onChange={handleChange} />
         <Button type="submit">Create</Button>
       </form>
-      <form onSubmit={() => updateTask(editTask.id)}>
-        <input type="text" name="heading" defaultValue={editTask.heading} id="heading" onChange={handleEditChange} />
-        <input type="text" name="description" defaultValue={editTask.description} id="description" onChange={handleEditChange} />
-        <Button type="submit">Save changes</Button>
-      </form>
+      
       {tasks.map((task) => 
         <Card key={task.id} className="w-[350px] mt-4">
           <CardHeader>
