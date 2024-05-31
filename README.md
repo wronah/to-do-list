@@ -8,3 +8,6 @@ Repository for my learning react journey as a preparation before participating i
  - Supabase
  - Shadcn-ui
  - Tailwind CSS
+
+## Learning resources:
+<a>[react with supabase](https://www.youtube.com/watch?v=mpLzN9ZM1yA&list=PLl6EcvA_AoxEFqwT_rNs1uZnnf7LSEoji&index=1)</a>
