@@ -1,6 +1,6 @@
 # learning-react 
 
-Repository for my learning react journey as a preparation before participating in a hackathon (Kościuszkon II).      
+Repository for my learning react journey as a preparation before participating in a hackathon (Kościuszkon II) which takes place on July 8th 2024.      
 - [ ]  Todo list project
 
 ## Technologies: 
