@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from './createClient';
 import './App.css'
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import Task from './components/Task';
 
 const App = () => {
 
@@ -119,16 +112,7 @@ const App = () => {
       </form>
       
       {tasks.map((task) => 
-        <Card key={task.id} className="w-[350px] mt-4">
-          <CardHeader>
-            <CardTitle>{task.heading}</CardTitle>
-            <CardDescription>{task.description}</CardDescription>
-          </CardHeader>
-          <CardFooter className="flex justify-end">
-            <Button variant="outline" onClick={() => {displayTask(task.id)}}>Edit</Button>
-            <Button className="ml-2" onClick={() => {deleteTask(task.id)}}>Delete</Button>
-          </CardFooter>
-        </Card>
+        <Task task={task} key={task.id} />
       )}
     </div>
   )
