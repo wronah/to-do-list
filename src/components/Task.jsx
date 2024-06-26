@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-const Task = ({task}) => {
+const Task = ({task, deleteTask}) => {
   return (
     <Card className="w-[350px] mt-4">
       <CardHeader>

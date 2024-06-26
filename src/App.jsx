@@ -112,7 +112,7 @@ const App = () => {
       </form>
       
       {tasks.map((task) => 
-        <Task task={task} key={task.id} />
+        <Task task={task} deleteTask={deleteTask} key={task.id} />
       )}
     </div>
   )
