@@ -55,7 +55,8 @@ const App = () => {
     })
   }
 
-  async function createTask() {
+  async function createTask(event) {
+    event.preventDefault()
     const { error } = await supabase
       .from('tasks')
       .insert({ heading: task.heading, description: task.description })
