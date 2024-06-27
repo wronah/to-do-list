@@ -72,10 +72,6 @@ const App = () => {
     if(error) {
       console.log(error)
     }
-
-    if(data) {
-      console.log(data)
-    }
   }
 
   async function updateTask(id) {
@@ -88,10 +84,6 @@ const App = () => {
 
     if(error) {
       console.log(error)
-    }
-
-    if(data) {
-      console.log(data)
     }
   }
 
