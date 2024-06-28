@@ -3,9 +3,11 @@ import { supabase } from './createClient';
 import './App.css'
 import { Button } from "@/components/ui/button"
 import Task from './components/Task';
+import taskService from './services/taskService';
 
 const App = () => {
 
+  const { getTasks } = taskService();
   const [tasks, setTasks] = useState([])
 
   const [task, setTask] = useState({
@@ -20,15 +22,8 @@ const App = () => {
   })
 
   useEffect(() => {
-    fetchTasks()
+    setTasks(getTasks());
   }, [])
-
-  async function fetchTasks() {
-    const { data } = await supabase
-      .from('tasks')
-      .select('*')
-    setTasks(data)
-  }
 
   function handleChange(event) {
     setTask(previousFormData =>{
@@ -54,7 +49,7 @@ const App = () => {
       .from('tasks')
       .insert({ heading: task.heading, description: task.description })
 
-    fetchTasks()
+    getTasks()
 
     if(error) {
       console.log(error)
@@ -67,7 +62,7 @@ const App = () => {
       .delete()
       .eq('id', id)
     
-    fetchTasks()
+    getTasks()
 
     if(error) {
       console.log(error)
@@ -80,7 +75,7 @@ const App = () => {
       .update({ heading: editTask.heading, description: editTask.description })
       .eq('id', id)
 
-    fetchTasks()
+    getTasks()
 
     if(error) {
       console.log(error)
