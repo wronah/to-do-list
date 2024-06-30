@@ -1,10 +1,15 @@
-import { supabase } from '../createClient';
+import { supabase } from '@/createClient';
 
-export function taskService() {
+export default function taskService() {
   async function getTasks() {
     const { data } = await supabase
       .from('tasks')
       .select('*')
-      return data;
+    console.log(data);
+    return data;
+  }
+
+  return {
+    getTasks,
   }
 }

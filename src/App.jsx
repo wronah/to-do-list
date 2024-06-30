@@ -22,7 +22,9 @@ const App = () => {
   })
 
   useEffect(() => {
-    setTasks(getTasks());
+    getTasks().then((data) => {
+      setTasks(data)
+    })
   }, [])
 
   function handleChange(event) {
@@ -49,7 +51,9 @@ const App = () => {
       .from('tasks')
       .insert({ heading: task.heading, description: task.description })
 
-    getTasks()
+    getTasks().then((data) => {
+      setTasks(data)
+    })
 
     if(error) {
       console.log(error)
@@ -62,7 +66,9 @@ const App = () => {
       .delete()
       .eq('id', id)
     
-    getTasks()
+    getTasks().then((data) => {
+      setTasks(data)
+    })
 
     if(error) {
       console.log(error)
