@@ -7,7 +7,7 @@ import taskService from './services/taskService';
 
 const App = () => {
 
-  const { getTasks } = taskService();
+  const { getTasks, addTask } = taskService();
   const [tasks, setTasks] = useState([])
 
   const [task, setTask] = useState({
@@ -22,8 +22,8 @@ const App = () => {
   })
 
   useEffect(() => {
-    getTasks().then((data) => {
-      setTasks(data)
+    getTasks().then((result) => {
+      setTasks(result.data)
     })
   }, [])
 
@@ -47,27 +47,25 @@ const App = () => {
 
   async function createTask(event) {
     event.preventDefault()
-    const { error } = await supabase
-      .from('tasks')
-      .insert({ heading: task.heading, description: task.description })
+    const response = await addTask(task);
 
-    getTasks().then((data) => {
-      setTasks(data)
+    getTasks().then((response) => {
+      setTasks(response.data)
     })
 
-    if(error) {
-      console.log(error)
+    if(response.error) {
+      console.log(response.error)
     }
   }
 
   async function deleteTask(id) {
-    const { data, error } = await supabase 
+    const { error } = await supabase 
       .from('tasks')
       .delete()
       .eq('id', id)
     
-    getTasks().then((data) => {
-      setTasks(data)
+    getTasks().then((response) => {
+      setTasks(response.data)
     })
 
     if(error) {
@@ -76,7 +74,7 @@ const App = () => {
   }
 
   async function updateTask(id) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('tasks')
       .update({ heading: editTask.heading, description: editTask.description })
       .eq('id', id)
